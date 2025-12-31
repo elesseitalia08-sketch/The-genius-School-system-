@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Genius School System - Welcome 2026</title>
+<style>
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+
+/* Global Styles */
+body {
+    margin:0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom, #004d40, #00796b);
+    color: #fff;
+    overflow-x: hidden;
+}
+h1, h2 {
+    font-family: 'Playfair Display', serif;
+}
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Hero Section */
+#hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    overflow: hidden;
+}
+#hero .logo {
+    width: 150px;
+    margin-bottom: 1rem;
+}
+.animated-heading {
+    font-size: 4rem;
+    color: gold;
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    0% { text-shadow: 0 0 10px gold; }
+    50% { text-shadow: 0 0 30px gold; }
+    100% { text-shadow: 0 0 20px gold; }
+}
+.islamic-quote {
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+/* About Section */
+#about {
+    background: #00695c;
+    padding: 5rem 2rem;
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 2s forwards;
+    animation-delay: 0.5s;
+}
+@keyframes fadeInUp {
+    to {
+        opacity:1;
+        transform: translateY(0);
+    }
+}
+
+/* New Year Section */
+#new-year {
+    position: relative;
+    background: #004d40;
+    padding: 5rem 2rem;
+}
+.sparkle-text {
+    font-size: 3rem;
+    color: gold;
+    position: relative;
+    animation: sparkle 2s infinite alternate;
+}
+@keyframes sparkle {
+    0% { text-shadow: 0 0 10px #ffd700; }
+    50% { text-shadow: 0 0 25px #fffacd, 0 0 30px #ffd700; }
+    100% { text-shadow: 0 0 15px #fffacd; }
+}
+
+/* Contact Section */
+#contact {
+    background: #00796b;
+    padding: 5rem 2rem;
+}
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+    background: gold;
+    color: #004d40;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.cta-button:hover {
+    background: #fffacd;
+    transform: scale(1.05);
+}
+
+/* Particle canvas */
+canvas {
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events: none;
+    z-index: 0;
+}
+#hero .hero-content, #new-year .container {
+    position: relative;
+    z-index: 1;
+}
+</style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+        <img src="https://via.placeholder.com/150" alt="School Logo" class="logo">
+        <h1 class="animated-heading">Welcome 2026</h1>
+        <h2>The Genius School System</h2>
+        <p class="islamic-quote">"Knowledge is light, and guidance is from Allah."</p>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about">
+    <div class="container fade-in">
+        <h2>About Us</h2>
+        <p>The Genius School System is dedicated to nurturing young minds with knowledge, wisdom, and faith. We follow Islamic values and strive for excellence in education, character, and guidance.</p>
+    </div>
+</section>
+
+<!-- New Year Section -->
+<section id="new-year">
+    <canvas id="newyear-canvas"></canvas>
+    <div class="container">
+        <h2 class="sparkle-text">Happy New Year 2026</h2>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact">
+    <div class="container">
+        <h2>Contact Us</h2>
+        <p>Visit our website or reach us on WhatsApp to learn more.</p>
+        <a href="#" class="cta-button">Learn More</a>
+    </div>
+</section>
+
+<script>
+// ===== Hero Section Particles =====
+const heroCanvas = document.getElementById('hero-canvas');
+const heroCtx = heroCanvas.getContext('2d');
+heroCanvas.width = window.innerWidth;
+heroCanvas.height = window.innerHeight;
+
+let heroParticles = [];
+for(let i=0;i<80;i++){
+    heroParticles.push({
+        x: Math.random()*heroCanvas.width,
+        y: Math.random()*heroCanvas.height,
+        radius: Math.random()*2+1,
+        speed: Math.random()*0.5+0.2
+    });
+}
+function animateHeroParticles(){
+    heroCtx.clearRect(0,0,heroCanvas.width,heroCanvas.height);
+    heroParticles.forEach(p=>{
+        p.y -= p.speed;
+        if(p.y < 0) p.y = heroCanvas.height;
+        heroCtx.beginPath();
+        heroCtx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+        heroCtx.fillStyle = 'rgba(255,215,0,0.7)';
+        heroCtx.fill();
+    });
+    requestAnimationFrame(animateHeroParticles);
+}
+animateHeroParticles();
+
+// ===== New Year Section Particles =====
+const newyearCanvas = document.getElementById('newyear-canvas');
+const nyCtx = newyearCanvas.getContext('2d');
+newyearCanvas.width = window.innerWidth;
+newyearCanvas.height = document.getElementById('new-year').offsetHeight;
+
+let nyParticles = [];
+for(let i=0;i<50;i++){
+    nyParticles.push({
+        x: Math.random()*newyearCanvas.width,
+        y: Math.random()*newyearCanvas.height,
+        radius: Math.random()*3+2,
+        speedY: Math.random()*1+0.5,
+        speedX: (Math.random()-0.5)*1
+    });
+}
+function animateNYParticles(){
+    nyCtx.clearRect(0,0,newyearCanvas.width,newyearCanvas.height);
+    nyParticles.forEach(p=>{
+        p.y += p.speedY;
+        p.x += p.speedX;
+        if(p.y>newyearCanvas.height) p.y=0;
+        if(p.x>newyearCanvas.width) p.x=0;
+        if(p.x<0) p.x=newyearCanvas.width;
+        nyCtx.beginPath();
+        nyCtx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+        nyCtx.fillStyle='rgba(255,215,0,0.8)';
+        nyCtx.fill();
+    });
+    requestAnimationFrame(animateNYParticles);
+}
+animateNYParticles();
+
+// ===== Fade in on scroll =====
+const faders = document.querySelectorAll('.fade-in');
+window.addEventListener('scroll', () => {
+    faders.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if(rect.top < window.innerHeight - 50){
+            el.style.animationPlayState = 'running';
+        }
+    });
+});
+
+// ===== Responsive canvas =====
+window.addEventListener('resize', () => {
+    heroCanvas.width = window.innerWidth;
+    heroCanvas.height = window.innerHeight;
+    newyearCanvas.width = window.innerWidth;
+    newyearCanvas.height = document.getElementById('new-year').offsetHeight;
+});
+</script>
+</body>
+</html>
